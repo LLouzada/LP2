@@ -1,0 +1,72 @@
+<canvas width="1300" height="700"></canvas>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+   
+
+    function desenhaCirculo(x, y, raio, cor) {
+
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+
+    function limpaTela() {
+
+        pincel.clearRect(0, 0, 1300, 700);
+    }
+
+    var raio = 15;
+    var xAleator;
+    var yAleator;
+    var pontos = 0;
+
+    function desenhaAlvo(x, y){
+
+    desenhaCirculo(x, y, raio + 25, "red");
+    desenhaCirculo(x, y, raio + 15, "white");
+    desenhaCirculo(x, y, raio, "red");
+    }
+    
+    function sorteiaPosicao(maximo){
+        return Math.floor(Math.random() * maximo);
+    }
+
+    function atualizaTela(){
+        limpaTela();
+        desenhaTexto("Tente acertar o alvo!", 0, 30);
+        desenhaTexto("Score : " + pontos, 1150, 30);
+        xAleator = sorteiaPosicao(1200);
+        yAleator = sorteiaPosicao(600);
+        desenhaAlvo(xAleator, yAleator);
+    }
+    function desenhaTexto(texto, x, y){
+
+        var tela = document.querySelector('canvas');
+        var pincel = tela.getContext('2d');
+
+        pincel.font='25px Georgia';
+        pincel.fillStyle='black';
+        pincel.fillText(texto, x, y);    
+    }
+
+    
+    setInterval(atualizaTela, 1000);
+
+    function dispara(evento){
+        var x = evento.pageX - tela.offsetLeft;
+        var y = evento.pageY - tela.offsetTop;
+
+        if(x > xAleator - raio 
+        && x < xAleator + raio 
+        && y > yAleator - raio && y < yAleator + raio) {
+
+            alert("Acertou Miserável!!");
+            pontos++;
+        }
+    }
+    tela.onclick = dispara;
+</script>

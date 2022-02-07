@@ -1,0 +1,45 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector("canvas");
+    var pincel = tela.getContext("2d");
+
+    function corRandom() {
+        
+        var cores = ["blue", "yellow", "red", "darkblue", "white", "green", "black", "grey", "orange", "lightblue", "lightgreen", "pink"];
+        var random = Math.round(Math.random() * 11);
+        var corAleatoria = cores[random];
+        return corAleatoria;
+    }
+
+    function desenheQuadrado(corBorda, largura, altura, qtdadeH, qtdadeV){
+
+        var x = 0;
+        var y = 0;
+        var contador = 1;
+        var contador1 = 1;
+        
+        while(contador <= qtdadeV){
+
+            while(contador1 <= qtdadeH){
+
+                pincel.fillStyle = corRandom();
+                pincel.fillRect(x, y, largura, altura);
+                pincel.strokeStyle = corBorda;
+                pincel.strokeRect(x, y, largura, altura);
+                contador1++;
+                x += largura;
+            }
+            x = 0;
+            y += altura;
+            contador1 = 1;
+            contador++;
+
+        }
+    }
+
+    desenheQuadrado("blue", 50, 50, 12, 8);
+    
+
+</script>
